@@ -19,6 +19,7 @@ class Members:
         self.Name=Name 
         self.PhonNumber=PhonNumber
         """self.LoanedBooks=LoanedBooks"""
+        """some new changes"""
         listMember.append(Name)
         listMember.append(PhonNumber)
         """listMember.append(LoanedBooks)"""
