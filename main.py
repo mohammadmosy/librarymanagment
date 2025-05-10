@@ -1,35 +1,13 @@
-import json
-books={}
+import management
 
-listMember= ["mohammad",'hadi','arman']
-
-class Book:
-    """
-     
-    """
-    def __init__(self,name , numbers,IsAvailable):
-        self.name=name
-        self.numbers=numbers
-        self.IsAvailable=IsAvailable
-        books[name]=numbers,IsAvailable
+def main():
+    management.sign_up()
 
 
-class Members:
-    def __init__(self,Name,PhonNumber):
-        self.Name=Name 
-        self.PhonNumber=PhonNumber
-        """self.LoanedBooks=LoanedBooks"""
-        """some new changes"""
-        listMember.append(Name)
-        listMember.append(PhonNumber)
-        """listMember.append(LoanedBooks)"""
-        print(listMember)
-
-class ManagementSystem:
-    pass
-
-"""res=Members("mohammad","123456789","book")"""
+if __name__ == "__main__":
+    main()
 
 
-with open('memmbers.json','w') as f:
-    json.dump(listMember,f)
+# TODO Registration
+# TODO when the user signs up, their username and password should be added to members.json
+# TODO when the user wants to sign in, their username and password must be checked
