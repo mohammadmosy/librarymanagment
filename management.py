@@ -1,109 +1,78 @@
+import json
+import os
 import objects
 
+FILENAME = "sample.json"
 
+# Checking for file existence and creating the initial file if it does not exist
+if not os.path.exists(FILENAME):
+    with open(FILENAME, "w") as f:
+        json.dump([], f)
 
-def AddBook():
-    new_book = objects.Book()
-    BookName=input("enter Book name")
-    if BookName=="":
-        print("Book name is required")
-        return False
-    NumberOfBooks = input("enter Number of books: ")
-    if NumberOfBooks=="":
+# Loading users from file
+def load_users():
+    with open(FILENAME, "r") as f:
+        return json.load(f)
 
-        print("Number of books is required")
+# Save users to file
+def save_users(users):
+    with open(FILENAME, "w") as f:
+        json.dump(users, f, indent=4)
 
-        return False
+# User login
+def login():
+    name = input("Enter your name: ")
+    password = input("Enter your password: ")
+    users = load_users()
 
-    IsAvailable = input("enter IsAvailable: ")
+    for user in users:
+        if user["name"] == name and user["password"] == password:
+            print("Login successful!")
+            objects.list_books()
+            return
+    print("Invalid username or password.")
 
-    if IsAvailable=="":
+# Add new user
+def add_user():
+    name = input("New user's name: ")
+    password = input("New user's password: ")
+    users = load_users()
 
-        print("IsAvailable is required")
+    # Checking for duplicate names
+    for user in users:
+        if user["name"] == name:
+            print("User already exists!")
+            return
 
-        return False
-    objects.books.Name=BookName
-    objects.Books.Number=NumberOfBooks
-    objects.Books.IsAvailable.IsAvailable
+    users.append({"name": name, "password": password})
+    save_users(users)
+    print("User added successfully.")
 
+# Delete user
+def delete_user():
+    name = input("Enter the username to delete: ")
+    users = load_users()
 
-import json
-
-import objects
-
-
-def sign_up():
-    name=input("enter your name:")
-    password = input('enter Password: ')
-    user_data = {"name": name, "password":password}
-    
-    json_object = json.dumps(user_data, indent=4)
-    
-    with open("sample.json", "a") as outfile:
-        outfile.write(json_object+",\n")
-    outfile.close()
-
-import json
-
-res = []
-seen = set()
-
-def add_entry(res, name, element, type):
-
-    # check if in seen set
-    if (name, element, type) in seen:
-        return res
-
-    # add to seen set
-    seen.add(tuple([name, element, type]))
-
-    # append to results list
-    res.append({'name': name, 'element': element, 'type': type})
-
-    return res
-
-args = ['xyz', '4444', 'test2']
-
-res = add_entry(res, *args)  # add entry - SUCCESS
-res = add_entry(res, *args)  # try to add again - FAIL
-
-args2 = ['wxy', '3241', 'test3']
-
-res = add_entry(res, *args2)  # add another - SUCCESS
-
-
-
-
-
-
-def sign_in():
-
-    username = input("enter your username: ")
-    if username=="":
-        print("username is required")
-        return False
-    password = input("enter your password: ")
-
-    if password=="":
-        print("password is required")
-        return False
-
-    if usere_pass.get(username) == password:
-        print(f"hello {username} ,you loged in successfully!")
-        buyer_seller()
+    updated_users = [user for user in users if user["name"] != name]
+    if len(updated_users) == len(users):
+        print("User not found.")
     else:
-        print("wrong username or password!!")
-    
+        save_users(updated_users)
+        print("User deleted successfully.")
 
+# Main menu
+def main():
+    while True:
 
-
-def logout(username):
-    if username in usere_pass:
-        print(f"{username} loged out successfully")
-
-
- 
-
+        choice = input("1. Login\n2. Add user\n3. Delete user\n4. Exit\n choice:>")
+        match choice:
+            case"1":
+                login()
+            case"2":
+                add_user()
+            case"3":
+                delete_user()
+      
 
 
 
