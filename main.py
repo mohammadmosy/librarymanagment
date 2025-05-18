@@ -1,13 +1,13 @@
 import management
-import books
+import objects
 
 def main():
-    menu=("1.member\n,2.management\nchoice>:")
+    menu=input("1.member\n,2.management\nchoice>:")
     match menu:
         case"1":
             management.main()
         case "2":
-            books.main()
+            object.main()
 
 
 if __name__ == "__main__":
